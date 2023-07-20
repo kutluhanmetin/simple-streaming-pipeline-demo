@@ -14,7 +14,6 @@ import java.util.AbstractMap;
 
 public class SimplePipeline {
     public static void main(String[] args) {
-        System.out.println("I am currently running on the cluster: {{ .ClusterName}}");
 	final String mapName = (args.length > 0)? args[0] : "{{ .MapName}}";
         // Create a pipeline that creates one item per second
         // and writes it to a map with the name given as an argument or my-map.
@@ -32,8 +31,6 @@ public class SimplePipeline {
                         AbstractMap.SimpleEntry::getValue));
         HazelcastInstance hz = Hazelcast.bootstrappedInstance();
         JobConfig config = new JobConfig();
-        // optionally set the name of the job
-        config.setName("{{ .PipelineName}}");
         hz.getJet().newJob(pipeline, config);
     }
 }
